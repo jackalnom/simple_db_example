@@ -16,12 +16,13 @@ def database_connection_url():
 # Create a new DB engine based on our connection string
 engine = sqlalchemy.create_engine(database_connection_url())
 
+event_name = input('What is the name of the event? ')
 
 # Create a single connection to the database. Later we will discuss pooling connections.
 conn = engine.connect()
 conn.execute(
     sqlalchemy.text("INSERT INTO events (name) VALUES (:x)"),
-    [{"x": "LOGIN"}, {"x": "LOGOUT"}],
+    [{"x": event_name}],
 )
 # For DDL/DML statements, they need to be committed before they take effect.
 # You can also turn on auto-commit with many libraries/drivers, but I suggest
